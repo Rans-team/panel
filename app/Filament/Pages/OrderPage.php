@@ -312,7 +312,7 @@ class OrderPage extends Page
     // おつりを計算
     public function calculateChange(): void
     {
-        $this->changeAmount = (int)$this->paymentAmount - $this->totalPrice;
+        $this->changeAmount = $this->paymentAmount - $this->totalPrice;
     }
 
     // 注文を確定
@@ -385,5 +385,11 @@ class OrderPage extends Page
     protected function getActions(): array
     {
         return [];
+    }
+
+    // Livewire により paymentAmount が更新されたときに呼び出されるフック
+    public function updatedPaymentAmount($value): void
+    {
+        $this->paymentAmount = $value === '' ? 0 : (int)$value;
     }
 }
