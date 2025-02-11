@@ -81,8 +81,10 @@ class OrderPage extends Page
     }
 
     // カート内の指定した商品の数量を更新
-    public function updateQuantity(int $index, int $quantity): void
+    public function updateQuantity(int $index, int|string $quantity): void
     {
+        $quantity = (int)$quantity;
+        
         if (!isset($this->cart[$index])) {
             Notification::make()
                 ->title('カートに該当する商品が存在しません。')
