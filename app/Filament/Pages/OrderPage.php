@@ -33,7 +33,7 @@ final class OrderPage extends Page
 
     public bool $showPaymentPopup = false;
 
-    public int $paymentAmount = 0;
+    public string $paymentAmount = '0';
 
     public int $changeAmount = 0;
 
@@ -326,7 +326,7 @@ final class OrderPage extends Page
     // 支払いポップアップを開く
     public function showPaymentModal(): void
     {
-        $this->paymentAmount = 0;
+        $this->paymentAmount = '0';
         $this->changeAmount = 0;
         $this->showPaymentPopup = true;
     }
@@ -351,7 +351,7 @@ final class OrderPage extends Page
             return;
         }
 
-        if ($this->paymentAmount < $this->totalPrice) {
+        if ((int) $this->paymentAmount < $this->totalPrice) {
             Notification::make()
                 ->title('支払い金額が不足しています。')
                 ->danger()
@@ -410,10 +410,5 @@ final class OrderPage extends Page
     protected function getActions(): array
     {
         return [];
-    }
-
-    public function updatedPaymentAmount($value): void
-    {
-        $this->paymentAmount = $value === '' ? 0 : (int) $value;
     }
 }
