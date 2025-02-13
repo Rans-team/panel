@@ -198,7 +198,7 @@ final class OrderPage extends Page
     }
 
     // セッションにカートデータを保存
-    private function updateCartSession(): void
+    public function updateCartSession(): void
     {
         session(['cart' => $this->cart]);
     }
